@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ── THEME VARIABLES ── */
+:root[data-theme='dark'] {
+  --bg:          #09090f;
+  --bg2:         #0f0f18;
+  --bg3:         #181824;
+  --card:        #111120;
+  --border:      rgba(255,255,255,0.07);
+  --text:        #e2e2f0;
+  --muted:       #6e6e90;
+  --accent:      #7fffcf;
+  --accent2:     #5b8fff;
+  --accent-rgb:  127,255,207;
+  --accent2-rgb: 91,143,255;
+  --glow:        rgba(127,255,207,0.14);
+  --shadow:      rgba(0,0,0,0.55);
+  --nav-bg:      rgba(9,9,15,0.82);
+}
+
+:root[data-theme='light'] {
+  --bg:          #f2f2f8;
+  --bg2:         #e8e8f2;
+  --bg3:         #dcdce8;
+  --card:        #ffffff;
+  --border:      rgba(0,0,0,0.08);
+  --text:        #18182e;
+  --muted:       #6060820;
+  --muted:       #606080;
+  --accent:      #00b37e;
+  --accent2:     #3b6fff;
+  --accent-rgb:  0,179,126;
+  --accent2-rgb: 59,111,255;
+  --glow:        rgba(0,179,126,0.13);
+  --shadow:      rgba(0,0,0,0.10);
+  --nav-bg:      rgba(242,242,248,0.85);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background 0.4s, color 0.4s;
+  position: relative;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* ── SHARED UTILITIES ── */
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.section-label::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin-bottom: 3rem;
+}
+
+.btn {
+  padding: 0.82rem 2rem;
+  border-radius: 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.92rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #09090f;
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--glow);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll top button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #09090f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  box-shadow: 0 6px 22px var(--glow);
+}
+.scroll-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-top-btn:hover { transform: translateY(-4px); }
